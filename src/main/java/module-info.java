@@ -11,5 +11,7 @@ module warehouse.erpclient {
     exports warehouse.erpclient.dto;
     opens warehouse.erpclient.controller to javafx.fxml;
     opens warehouse.erpclient.dto;
+    exports warehouse.erpclient.controller.warehouse;
+    opens warehouse.erpclient.controller.warehouse to javafx.fxml;
 
 }

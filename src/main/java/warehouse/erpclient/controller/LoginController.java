@@ -4,16 +4,25 @@ import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.BooleanExpression;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import jfxtras.styles.jmetro.JMetro;
+import jfxtras.styles.jmetro.JMetroStyleClass;
+import jfxtras.styles.jmetro.Style;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import warehouse.erpclient.AppStarter;
 import warehouse.erpclient.dao.ExecutorServiceProvider;
 import warehouse.erpclient.dto.LoginCredentials;
 import warehouse.erpclient.dto.UserDTO;
 import warehouse.erpclient.rest.LoginClient;
+import warehouse.erpclient.sevice.AlertUtils;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -21,7 +30,11 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 
+import static warehouse.erpclient.sevice.StageUtils.stageCreator;
+
 public class LoginController implements Initializable {
+
+    private final String MAIN_STAGE_FXML_PATH = "/warehouse/erpclient/mainStage.fxml";
 
     private final ExecutorService executorService;
     private final LoginClient loginClient;
@@ -112,14 +125,11 @@ public class LoginController implements Initializable {
             String authenticationToken = "";
             List<String> authorizationHeaders = responseEntity.getHeaders().get("Authorization");
             if (authorizationHeaders != null) authenticationToken = authorizationHeaders.stream().findAny().orElse("");
-            //todo open main stage
+            getStage().close();
+            stageCreator(new Stage(), MAIN_STAGE_FXML_PATH);
         }
-        if (responseStatus.is4xxClientError()) {
+        if (responseStatus.is4xxClientError() || responseStatus.is5xxServerError()) {
             errorLabel.setText((String) responseEntity.getBody());
-        }
-        if (responseStatus.is5xxServerError()) {
-            errorLabel.setText((String) responseEntity.getBody());
-            //todo alert exception;
         }
     }
 
@@ -132,7 +142,8 @@ public class LoginController implements Initializable {
         getStage().close();
     }
 
-    private Stage getStage() {
+    public Stage getStage() {
         return (Stage) mainPane.getScene().getWindow();
     }
+
 }
