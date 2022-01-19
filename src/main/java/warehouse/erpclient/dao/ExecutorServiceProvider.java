@@ -9,9 +9,14 @@ public enum ExecutorServiceProvider {
 
     private final ExecutorService executorService;
 
-
     ExecutorServiceProvider() {
-        executorService = Executors.newCachedThreadPool();
+        executorService = Executors.newCachedThreadPool(
+                r -> {
+                    Thread thread = Executors.defaultThreadFactory().newThread(r);
+                    thread.setDaemon(true);
+                    return thread;
+                }
+        );
     }
 
     public ExecutorService getExecutorService() {

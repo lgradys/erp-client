@@ -1,18 +1,15 @@
 package warehouse.erpclient.controller.warehouse;
 
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import warehouse.erpclient.controller.MainController;
-import warehouse.erpclient.dao.ExecutorServiceProvider;
 import warehouse.erpclient.rest.WarehouseClient;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.ExecutorService;
 
 public class WarehouseController extends MainController {
 

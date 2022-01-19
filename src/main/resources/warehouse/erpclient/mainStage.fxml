@@ -1,44 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 
 <BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warehouse.erpclient.controller.MainController">
-   <top>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <MenuBar>
-              <menus>
-                <Menu mnemonicParsing="false" text="File">
-                  <items>
-                    <MenuItem fx:id="close" mnemonicParsing="false" text="Close" />
-                  </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                     <items>
-                        <CheckMenuItem fx:id="alwaysOnTop" mnemonicParsing="false" text="Always on top" />
-                     </items>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                  <items>
-                    <MenuItem fx:id="about" mnemonicParsing="false" text="About" />
-                  </items>
-                </Menu>
-              </menus>
-            </MenuBar>
-         </children>
-         <BorderPane.margin>
-            <Insets />
-         </BorderPane.margin>
-      </VBox>
-   </top>
    <center>
       <Pane fx:id="mainPane" BorderPane.alignment="CENTER">
          <padding>
@@ -46,11 +18,82 @@
          </padding>
       </Pane>
    </center>
-   <bottom>
-      <Label text="Warehouse management system" BorderPane.alignment="CENTER">
+   <top>
+      <HBox alignment="CENTER" spacing="100.0" styleClass="background" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" spacing="10.0" styleClass="button-container">
+               <children>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../image/profile.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="userButton" mnemonicParsing="false" text="USER PANEL" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER" spacing="10.0" styleClass="button-container">
+               <children>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../image/warehouse_2.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="warehouseButton" mnemonicParsing="false" text="WAREHOUSES" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER" spacing="10.0" styleClass="button-container">
+               <children>
+                  <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../image/settings.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="settingsButton" mnemonicParsing="false" text="SETTINGS" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+         </children>
          <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+            <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
          </padding>
-      </Label>
+      </HBox>
+   </top>
+   <stylesheets>
+      <URL value="@../../css/main.css" />
+      <URL value="@../../css/global.css" />
+   </stylesheets>
+   <bottom>
+      <HBox alignment="CENTER" spacing="100.0" styleClass="background" BorderPane.alignment="CENTER">
+         <children>
+            <Label styleClass="footer" text="Warehouse management system">
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </Label>
+            <HBox alignment="CENTER" spacing="10.0" styleClass="button-container">
+               <children>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../image/logout.png" />
+                     </image>
+                  </ImageView>
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </HBox>
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
+         </padding>
+      </HBox>
    </bottom>
 </BorderPane>

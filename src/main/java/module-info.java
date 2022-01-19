@@ -3,7 +3,6 @@ module warehouse.erpclient {
     requires javafx.fxml;
     requires lombok;
     requires spring.web;
-    requires org.jfxtras.styles.jmetro;
 
     opens warehouse.erpclient to javafx.fxml;
     exports warehouse.erpclient;

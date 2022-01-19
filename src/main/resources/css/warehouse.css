@@ -1,0 +1,18 @@
+.background{
+    -fx-background-color: -fx-primary-main;
+}
+
+.menu-button {
+    -fx-font-size: 1.2em;
+    -fx-text-fill: -fx-sceondary-main;
+    -fx-background-color: transparent;
+    -fx-border-color: -fx-sceondary-main;
+    -fx-border-radius: 20px;
+}
+
+.menu-button:hover {
+    -fx-border-color: -fx-primary-support;
+    -fx-text-fill: -fx-primary-support;
+    -fx-border-radius: 20px;
+    -fx-border-width: 2px;
+}

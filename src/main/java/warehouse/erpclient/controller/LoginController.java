@@ -4,25 +4,16 @@ import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.BooleanExpression;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import jfxtras.styles.jmetro.JMetro;
-import jfxtras.styles.jmetro.JMetroStyleClass;
-import jfxtras.styles.jmetro.Style;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import warehouse.erpclient.AppStarter;
 import warehouse.erpclient.dao.ExecutorServiceProvider;
 import warehouse.erpclient.dto.LoginCredentials;
 import warehouse.erpclient.dto.UserDTO;
 import warehouse.erpclient.rest.LoginClient;
-import warehouse.erpclient.sevice.AlertUtils;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -138,7 +129,6 @@ public class LoginController implements Initializable {
     }
 
     public void closeApp() {
-        executorService.shutdownNow();
         getStage().close();
     }
 

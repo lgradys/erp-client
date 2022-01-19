@@ -25,7 +25,7 @@ public class LoginClient {
     public void processAuthentication(LoginCredentials loginCredentials, LoginHandler loginHandler) {
         simulateDelay(1000);
         ResponseEntity<?> responseEntity;
-        try{
+        try {
             responseEntity = restTemplate.postForEntity(LOGIN_URL, loginCredentials, UserDTO.class);
         } catch (HttpStatusCodeException exception) {
             responseEntity = new ResponseEntity<>(exception.getResponseBodyAsString(), exception.getResponseHeaders(), exception.getStatusCode());
