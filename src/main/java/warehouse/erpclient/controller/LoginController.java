@@ -4,28 +4,33 @@ import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.BooleanExpression;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import warehouse.erpclient.AppStarter;
 import warehouse.erpclient.dao.ExecutorServiceProvider;
 import warehouse.erpclient.dto.LoginCredentials;
 import warehouse.erpclient.dto.UserDTO;
 import warehouse.erpclient.rest.LoginClient;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
 
-import static warehouse.erpclient.sevice.StageUtils.stageCreator;
+import static warehouse.erpclient.sevice.AlertUtils.createExceptionAlert;
 
 public class LoginController implements Initializable {
 
-    private final String MAIN_STAGE_FXML_PATH = "/warehouse/erpclient/mainStage.fxml";
+    private final String MAIN_FXML_PATH = "/warehouse/erpclient/main.fxml";
 
     private final ExecutorService executorService;
     private final LoginClient loginClient;
@@ -117,10 +122,25 @@ public class LoginController implements Initializable {
             List<String> authorizationHeaders = responseEntity.getHeaders().get("Authorization");
             if (authorizationHeaders != null) authenticationToken = authorizationHeaders.stream().findAny().orElse("");
             getStage().close();
-            stageCreator(new Stage(), MAIN_STAGE_FXML_PATH);
+            openMainStage(user, authenticationToken);
         }
         if (responseStatus.is4xxClientError() || responseStatus.is5xxServerError()) {
             errorLabel.setText((String) responseEntity.getBody());
+        }
+    }
+
+    private void openMainStage(UserDTO userDTO, String authenticationToken) {
+        try {
+            FXMLLoader loader = new FXMLLoader(AppStarter.class.getResource("/warehouse/erpclient/main.fxml"));
+            Parent parent = loader.load();
+            MainController mainController = loader.getController();
+            mainController.setUserDTO(userDTO);
+            mainController.setAuthenticationToken(authenticationToken);
+            Stage stage = new Stage();
+            stage.setScene(new Scene(parent));
+            stage.show();
+        } catch (IOException e) {
+            createExceptionAlert(e.getMessage());
         }
     }
 

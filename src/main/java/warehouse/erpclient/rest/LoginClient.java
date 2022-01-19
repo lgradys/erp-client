@@ -25,11 +25,12 @@ public class LoginClient {
     public void processAuthentication(LoginCredentials loginCredentials, LoginHandler loginHandler) {
         simulateDelay(1000);
         ResponseEntity<?> responseEntity;
-        try {
+        try{
             responseEntity = restTemplate.postForEntity(LOGIN_URL, loginCredentials, UserDTO.class);
         } catch (HttpStatusCodeException exception) {
             responseEntity = new ResponseEntity<>(exception.getResponseBodyAsString(), exception.getResponseHeaders(), exception.getStatusCode());
-        } catch (ResourceAccessException exception) {
+        } catch (Exception exception) {
+            System.out.println(exception.getMessage());
             responseEntity = new ResponseEntity<>("Connection refused. Try again later!", HttpHeaders.EMPTY, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         //todo check another possible exception - isolation of server exceptions and lost connection on client side
@@ -44,4 +45,5 @@ public class LoginClient {
             e.printStackTrace();
         }
     }
+
 }

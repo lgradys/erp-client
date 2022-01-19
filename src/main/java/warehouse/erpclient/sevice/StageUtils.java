@@ -13,7 +13,7 @@ import static warehouse.erpclient.sevice.AlertUtils.createExceptionAlert;
 public class StageUtils {
 
     public static void stageCreator(Stage stage, String fxmlFilePath) {
-        try{
+        try {
             stage.setScene(sceneCreator(fxmlFilePath));
             stage.show();
         } catch (IOException exception) {
@@ -27,7 +27,6 @@ public class StageUtils {
         Pane sceneMainPane = layoutsLoader(fxmlFilePath);
         return new Scene(sceneMainPane);
     }
-
 
     public static Pane layoutsLoader(String fxmlFilePath) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(AppStarter.class.getResource(fxmlFilePath));

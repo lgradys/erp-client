@@ -8,24 +8,16 @@
     -fx-text-fill: -fx-primary-support;
 }
 
-.button {
+.main-button {
     -fx-font-size: 1.5em;
     -fx-font-weight: bold;
-    -fx-text-fill: -fx-secondary-supprot;
+    -fx-text-fill: -fx-secondary-support;
     -fx-background-color: transparent;
 }
 
-.button:hover {
-    -fx-border-width: 4px;
-}
-
-.button-container:hover {
+.main-button:hover {
+    -fx-text-fill: -fx-primary-support;
+    -fx-border-width: 2px;
+    -fx-border-radius: 50px;
     -fx-border-color: -fx-primary-support;
-    -fx-border-width: 4px;
-    -fx-border-radius: 20px;
-}
-
-.button-container {
-    -fx-background-color: transparent;
-    -fx-border: none;
 }

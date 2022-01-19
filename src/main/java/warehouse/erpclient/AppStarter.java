@@ -9,7 +9,7 @@ public class AppStarter extends Application {
 
     @Override
     public void start(Stage stage) {
-        stageCreator(stage, "/warehouse/erpclient/login.fxml");
+        stageCreator(stage,"/warehouse/erpclient/login.fxml");
     }
 
     public static void main(String[] args) {

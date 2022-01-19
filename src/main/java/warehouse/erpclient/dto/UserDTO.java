@@ -1,5 +1,6 @@
 package warehouse.erpclient.dto;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 

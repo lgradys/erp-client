@@ -3,54 +3,48 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <BorderPane fx:id="borderPane" prefHeight="468.0" prefWidth="1024.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <right>
-            <VBox alignment="CENTER" spacing="10.0" styleClass="background" BorderPane.alignment="CENTER">
-               <children>
-                  <Button fx:id="addButton" mnemonicParsing="false" styleClass="menu-button" text="Add">
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Button>
-                  <Button fx:id="editButton" mnemonicParsing="false" styleClass="menu-button" text="Edit">
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Button>
-                  <Button fx:id="deleteButton" mnemonicParsing="false" styleClass="menu-button" text="Delete">
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Button>
-                  <Button fx:id="backButton" mnemonicParsing="false" styleClass="menu-button" text="Back">
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </Button>
-               </children>
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+   <right>
+      <VBox alignment="CENTER" spacing="10.0" styleClass="background" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="addButton" mnemonicParsing="false" styleClass="menu-button" text="ADD">
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
-            </VBox>
-         </right>
-         <center>
-            <Pane fx:id="warehouseTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-         </center>
-         <left>
-            <Pane fx:id="selectedWarehouse" prefHeight="200.0" prefWidth="200.0" styleClass="background" BorderPane.alignment="CENTER" />
-         </left>
-         <stylesheets>
-            <URL value="@../../../css/global.css" />
-            <URL value="@../../../css/warehouse.css" />
-         </stylesheets>
-      </BorderPane>
-   </children>
-</AnchorPane>
+            </Button>
+            <Button fx:id="editButton" mnemonicParsing="false" styleClass="menu-button" text="EDIT">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button fx:id="deleteButton" mnemonicParsing="false" styleClass="menu-button" text="DELETE">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+            <Button fx:id="backButton" mnemonicParsing="false" styleClass="menu-button" text="BACK">
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </right>
+   <center>
+      <Pane fx:id="warehouseTable" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+   </center>
+   <left>
+      <Pane fx:id="selectedWarehouse" prefHeight="200.0" prefWidth="200.0" styleClass="background" BorderPane.alignment="CENTER" />
+   </left>
+   <stylesheets>
+      <URL value="@../../../css/global.css" />
+      <URL value="@../../../css/warehouse.css" />
+   </stylesheets>
+</BorderPane>
