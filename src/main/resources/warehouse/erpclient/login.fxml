@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox fx:id="mainPane" alignment="CENTER" spacing="60.0" styleClass="background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warehouse.erpclient.controller.LoginController">
+<HBox fx:id="mainPane" alignment="CENTER" spacing="60.0" styleClass="background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="warehouse.erpclient.login.LoginController">
    <children>
       <ImageView fitHeight="150.0" fitWidth="200.0" nodeOrientation="INHERIT" opacity="0.5" pickOnBounds="true" preserveRatio="true">
          <image>

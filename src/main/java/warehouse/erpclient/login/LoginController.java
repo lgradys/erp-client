@@ -1,4 +1,4 @@
-package warehouse.erpclient.controller;
+package warehouse.erpclient.login;
 
 import javafx.application.Platform;
 import javafx.beans.binding.BooleanBinding;
@@ -14,10 +14,12 @@ import javafx.stage.Stage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import warehouse.erpclient.AppStarter;
-import warehouse.erpclient.dao.ExecutorServiceProvider;
-import warehouse.erpclient.dto.LoginCredentials;
-import warehouse.erpclient.dto.UserDTO;
-import warehouse.erpclient.rest.LoginClient;
+import warehouse.erpclient.login.dto.LoginCredentials;
+import warehouse.erpclient.login.dto.UserDTO;
+import warehouse.erpclient.utils.dao.ExecutorServiceProvider;
+import warehouse.erpclient.utils.dto.Error;
+import warehouse.erpclient.utils.dto.RequestResult;
+import warehouse.erpclient.warehouse.controller.MainController;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,8 +27,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.concurrent.ExecutorService;
+import java.util.stream.Collectors;
 
-import static warehouse.erpclient.sevice.AlertUtils.createExceptionAlert;
+import static warehouse.erpclient.utils.AlertUtils.createExceptionAlert;
 
 public class LoginController implements Initializable {
 
@@ -59,6 +62,7 @@ public class LoginController implements Initializable {
     public LoginController() {
         executorService = ExecutorServiceProvider.INSTANCE.getExecutorService();
         loginClient = new LoginClient();
+
     }
 
     @Override
@@ -94,10 +98,7 @@ public class LoginController implements Initializable {
     private void initializeLoginButton() {
         loginButton.setOnAction(actionEvent -> {
             progressBar.setVisible(true);
-            LoginCredentials loginCredentials = LoginCredentials.builder()
-                    .username(usernameFiled.getText())
-                    .password(passwordField.getText())
-                    .build();
+            LoginCredentials loginCredentials = new LoginCredentials(usernameFiled.getText(), passwordField.getText());
             authenticate(loginCredentials);
         });
     }
@@ -114,28 +115,30 @@ public class LoginController implements Initializable {
         Arrays.stream(textFields).forEach(TextInputControl::clear);
     }
 
-    private void handleAuthenticationResult(ResponseEntity<?> responseEntity) {
+    private void handleAuthenticationResult(ResponseEntity<RequestResult<UserDTO>> responseEntity) {
         HttpStatus responseStatus = responseEntity.getStatusCode();
         if (responseStatus.equals(HttpStatus.OK)) {
-            UserDTO user = (UserDTO) responseEntity.getBody();
-            String authenticationToken = "";
+            UserDTO userDTO = responseEntity.getBody().getResource().stream().findAny().get();
+            System.out.println(userDTO);
+            String authorizationToken = "";
             List<String> authorizationHeaders = responseEntity.getHeaders().get("Authorization");
-            if (authorizationHeaders != null) authenticationToken = authorizationHeaders.stream().findAny().orElse("");
+            if (authorizationHeaders != null) authorizationToken = authorizationHeaders.stream().findAny().orElse("");
             getStage().close();
-            openMainStage(user, authenticationToken);
+            openMainStage(userDTO, authorizationToken);
         }
         if (responseStatus.is4xxClientError() || responseStatus.is5xxServerError()) {
-            errorLabel.setText((String) responseEntity.getBody());
+            String errors = responseEntity.getBody().getError().stream()
+                    .map(Error::getMessage)
+                    .collect(Collectors.joining(" "));
+            errorLabel.setText(errors);
         }
     }
 
-    private void openMainStage(UserDTO userDTO, String authenticationToken) {
+    private void openMainStage(UserDTO userDTO, String authorizationToken) {
         try {
-            FXMLLoader loader = new FXMLLoader(AppStarter.class.getResource("/warehouse/erpclient/main.fxml"));
+            FXMLLoader loader = new FXMLLoader(AppStarter.class.getResource(MAIN_FXML_PATH));
+            loader.setController(new MainController(userDTO, authorizationToken));
             Parent parent = loader.load();
-            MainController mainController = loader.getController();
-            mainController.setUserDTO(userDTO);
-            mainController.setAuthenticationToken(authenticationToken);
             Stage stage = new Stage();
             stage.setScene(new Scene(parent));
             stage.show();

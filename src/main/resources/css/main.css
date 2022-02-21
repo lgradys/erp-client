@@ -18,6 +18,6 @@
 .main-button:hover {
     -fx-text-fill: -fx-primary-support;
     -fx-border-width: 2px;
-    -fx-border-radius: 50px;
+    -fx-border-radius: 10px;
     -fx-border-color: -fx-primary-support;
 }

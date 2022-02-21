@@ -4,7 +4,7 @@
 
 .field-box{
     -fx-background-color: transparent;
-    -fx-border-radius: 20px;
+    -fx-border-radius: 50px;
     -fx-border-color: -fx-sceondary-main;
 }
 

@@ -1,14 +1,15 @@
-package warehouse.erpclient.sevice;
+package warehouse.erpclient.utils;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import warehouse.erpclient.AppStarter;
 
 import java.io.IOException;
 
-import static warehouse.erpclient.sevice.AlertUtils.createExceptionAlert;
+import static warehouse.erpclient.utils.AlertUtils.createExceptionAlert;
 
 public class StageUtils {
 
@@ -31,6 +32,13 @@ public class StageUtils {
     public static Pane layoutsLoader(String fxmlFilePath) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(AppStarter.class.getResource(fxmlFilePath));
         return fxmlLoader.load();
+    }
+
+    public static void centerPane(Pane loadedPane) {
+        AnchorPane.setBottomAnchor(loadedPane, 0.0);
+        AnchorPane.setTopAnchor(loadedPane, 0.0);
+        AnchorPane.setLeftAnchor(loadedPane, 0.0);
+        AnchorPane.setRightAnchor(loadedPane, 0.0);
     }
 
 }

@@ -1,4 +1,4 @@
-package warehouse.erpclient.sevice;
+package warehouse.erpclient.utils;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;

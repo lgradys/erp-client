@@ -3,7 +3,7 @@ package warehouse.erpclient;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-import static warehouse.erpclient.sevice.StageUtils.stageCreator;
+import static warehouse.erpclient.utils.StageUtils.stageCreator;
 
 public class AppStarter extends Application {
 

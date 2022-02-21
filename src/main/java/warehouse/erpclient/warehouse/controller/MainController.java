@@ -1,21 +1,22 @@
-package warehouse.erpclient.controller;
+package warehouse.erpclient.warehouse.controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import warehouse.erpclient.dto.UserDTO;
+import warehouse.erpclient.AppStarter;
+import warehouse.erpclient.login.dto.UserDTO;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static warehouse.erpclient.sevice.AlertUtils.createExceptionAlert;
-import static warehouse.erpclient.sevice.StageUtils.layoutsLoader;
-import static warehouse.erpclient.sevice.StageUtils.stageCreator;
+import static warehouse.erpclient.utils.AlertUtils.createExceptionAlert;
+import static warehouse.erpclient.utils.StageUtils.*;
 
 public class MainController implements Initializable {
 
@@ -24,7 +25,7 @@ public class MainController implements Initializable {
     private final String LOGIN_FXML = "/warehouse/erpclient/login.fxml";
 
     private UserDTO userDTO;
-    private String authenticationToken;
+    private String authorizationToken;
 
     @FXML
     private BorderPane borderPane;
@@ -44,13 +45,17 @@ public class MainController implements Initializable {
     @FXML
     private Button warehouseButton;
 
-
-    public void setUserDTO(UserDTO userDTO) {
+    public MainController(UserDTO userDTO, String authorizationToken) {
         this.userDTO = userDTO;
+        this.authorizationToken = authorizationToken;
     }
 
-    public void setAuthenticationToken(String authenticationToken) {
-        this.authenticationToken = authenticationToken;
+    public UserDTO getUserDTO() {
+        return userDTO;
+    }
+
+    public String getAuthorizationToken() {
+        return authorizationToken;
     }
 
     @Override
@@ -62,44 +67,40 @@ public class MainController implements Initializable {
     }
 
     private void initializeDefaultView() {
-        initializeView(PROFILE_FXML_PATH);
+        initializeMainView(WAREHOUSE_FXML_PATH, mainPane, new WarehouseController(this));
     }
 
-    private void initializeLogoutButton() {
+
+    public void initializeLogoutButton() {
         logoutButton.setOnAction(actionEvent -> {
             getStage().close();
             stageCreator(new Stage(), LOGIN_FXML);
         });
     }
 
-    private Stage getStage() {
+    public Stage getStage() {
         return (Stage) borderPane.getScene().getWindow();
     }
 
-    private void initializeWarehouseButton() {
-        warehouseButton.setOnAction(actionEvent -> initializeView(WAREHOUSE_FXML_PATH));
+    public void initializeWarehouseButton() {
+        warehouseButton.setOnAction(actionEvent -> initializeMainView(WAREHOUSE_FXML_PATH, mainPane, new WarehouseController(this)));
     }
 
-    private void initializeProfileButtons() {
-        profileButton.setOnAction(actionEvent -> initializeView(PROFILE_FXML_PATH));
+    public void initializeProfileButtons() {
+        profileButton.setOnAction(actionEvent -> initializeMainView(PROFILE_FXML_PATH, mainPane, new ProfileController(this)));
     }
 
-    private void initializeView(String viewPath) {
+    public void initializeMainView(String viewPath, Pane mainPane, AppController appController) {
         try {
             mainPane.getChildren().clear();
-            Pane loadedPane = layoutsLoader(viewPath);
+            FXMLLoader loader = new FXMLLoader(AppStarter.class.getResource(viewPath));
+            loader.setController(appController);
+            Pane loadedPane = loader.load();
             centerPane(loadedPane);
             mainPane.getChildren().add(loadedPane);
         } catch (IOException e) {
             createExceptionAlert(e.getMessage());
         }
-    }
-
-    private void centerPane(Pane loadedPane) {
-        AnchorPane.setBottomAnchor(loadedPane, 0.0);
-        AnchorPane.setTopAnchor(loadedPane, 0.0);
-        AnchorPane.setLeftAnchor(loadedPane, 0.0);
-        AnchorPane.setRightAnchor(loadedPane, 0.0);
     }
 
 }
