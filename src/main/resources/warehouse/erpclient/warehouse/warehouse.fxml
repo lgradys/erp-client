@@ -37,7 +37,7 @@
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0">
                <children>
                   <Label maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" text="Warehouse list" />
-                  <ComboBox fx:id="warehouseComboBox" prefWidth="150.0" />
+                  <ComboBox fx:id="warehouseComboBox" />
                </children>
             </VBox>
             <AnchorPane fx:id="warehouseInfo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" />

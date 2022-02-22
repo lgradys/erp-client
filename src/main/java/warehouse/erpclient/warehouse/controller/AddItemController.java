@@ -51,6 +51,7 @@ public class AddItemController extends ItemCrudController implements Initializab
         initializeWarehouseList(warehouseController, warehouseComboBox);
         initializeDisabledPropertyBindings(addButton, idField, nameField, quantityField, unitField);
         initializeItemPropertyBindings(item, warehouseComboBox, idField, nameField, quantityField, unitField);
+        clearFields(idField, nameField, quantityField, unitField);
         initializeAddButton();
         initializeCloseButton(closeButton, mainPane);
     }

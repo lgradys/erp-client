@@ -2,18 +2,35 @@
     -fx-background-color: -fx-primary-main;
 }
 
-.menu-button {
-    -fx-font-size: 1.2em;
+.button{
+    -fx-font-size: 1.5em;
     -fx-font-weight: bold;
-    -fx-text-fill: -fx-secondary-support;
+    -fx-text-fill: -fx-sceondary-main;
     -fx-background-color: transparent;
 }
 
-.menu-button:hover {
+.button:hover {
     -fx-text-fill: -fx-primary-support;
     -fx-border-width: 2px;
     -fx-border-radius: 10px;
     -fx-border-color: -fx-primary-support;
+}
+
+.field-box{
+    -fx-background-color: transparent;
+}
+
+.text-field {
+    -fx-font-size: 1.2em;
+    -fx-text-fill: -fx-sceondary-main;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent -fx-sceondary-main transparent;
+}
+
+.label {
+    -fx-text-fill: -fx-sceondary-main;
+    -fx-font-size: 1.2em;
+    -fx-font-weight: bold;
 }
 
 .combo-box {
@@ -23,6 +40,10 @@
     -fx-border-color: -fx-primary-support;
     -fx-border-radius: 10px;
     -fx-font-weight: bold;
+}
+
+.combo-box .list-cell{
+    -fx-text-fill: -fx-sceondary-main;
 }
 
 .combo-box .list-view{
@@ -36,14 +57,9 @@
 .combo-box-popup .list-cell {
     -fx-font-weight: normal;
     -fx-background-color: -fx-primary-main;
-    -fx-text-fill: -fx-secondary-support;
+    -fx-text-fill: -fx-sceondary-main;
 }
 
 .combo-box-popup .list-cell:hover {
     -fx-text-fill: -fx-primary-support;
-}
-
-.label{
-    -fx-text-fill: -fx-secondary-support;
-    -fx-font-size: 1.2em;
 }

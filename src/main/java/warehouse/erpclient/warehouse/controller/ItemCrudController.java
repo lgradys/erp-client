@@ -5,6 +5,7 @@ import javafx.beans.binding.BooleanExpression;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.converter.NumberStringConverter;
@@ -47,6 +48,10 @@ public class ItemCrudController {
         nameField.textProperty().bindBidirectional(item.nameProperty());
         quantityField.textProperty().bindBidirectional(item.quantityProperty(), new NumberStringConverter());
         unitField.textProperty().bindBidirectional(item.quantityUnitProperty());
+    }
+
+    public void clearFields(TextField ... textFields) {
+        Arrays.stream(textFields).forEach(TextInputControl::clear);
     }
 
     private void initializeWarehousePropertyListener(Item item, ComboBox<Warehouse> warehouseComboBox) {
