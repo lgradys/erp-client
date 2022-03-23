@@ -14,9 +14,11 @@ import warehouse.erpclient.warehouse.dto.WarehouseDTO;
 
 import java.util.List;
 
+import static warehouse.erpclient.utils.PropertiesUtils.createUrl;
+
 public class WarehouseClient {
 
-    private final String WAREHOUSE_URL = "http://localhost:8080/warehouses";
+    private final String WAREHOUSE_PATH = "/warehouses";
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
@@ -43,7 +45,7 @@ public class WarehouseClient {
         try {
             ParameterizedTypeReference<RequestResult<WarehouseDTO>> parameterizedTypeReference = new ParameterizedTypeReference<>() {
             };
-            responseEntity = restTemplate.exchange(WAREHOUSE_URL, HttpMethod.GET, new HttpEntity<>(createHeaders(authorizationToken)), parameterizedTypeReference);
+            responseEntity = restTemplate.exchange(createUrl(WAREHOUSE_PATH), HttpMethod.GET, new HttpEntity<>(createHeaders(authorizationToken)), parameterizedTypeReference);
         } catch (HttpStatusCodeException exception) {
             RequestResult<WarehouseDTO> requestResult = objectMapper.readValue(exception.getResponseBodyAsString(), new TypeReference<>() {
             });

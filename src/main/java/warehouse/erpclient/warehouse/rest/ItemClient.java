@@ -15,10 +15,12 @@ import warehouse.erpclient.warehouse.dto.ItemDTO;
 import java.util.List;
 import java.util.Map;
 
+import static warehouse.erpclient.utils.PropertiesUtils.createUrl;
+
 public class ItemClient {
 
-    private final String ITEMS_URL = "http://localhost:8080/warehouses/{warehouseId}/items";
-    private final String ITEM_URL = "http://localhost:8080/warehouses/{warehouseId}/items/{itemId}";
+    private final String ITEMS_PATH = "/warehouses/{warehouseId}/items";
+    private final String ITEM_PATH = "/warehouses/{warehouseId}/items/{itemId}";
 
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
@@ -32,25 +34,25 @@ public class ItemClient {
     public ResponseEntity<RequestResult<ItemDTO>> getItems(String authorizationToken, long warehouseId) {
         Map<String, Long> uriVariables = createUriVariables(warehouseId);
         HttpEntity<ItemDTO> requestEntity = createRequestEntity(null, authorizationToken);
-        return sendRequest(ITEMS_URL, HttpMethod.GET, requestEntity, uriVariables);
+        return sendRequest(createUrl(ITEMS_PATH), HttpMethod.GET, requestEntity, uriVariables);
     }
 
     public ResponseEntity<RequestResult<ItemDTO>> deleteItem(String authenticationToken, long warehouseId, long itemId) {
         Map<String, Long> uriVariables = createUriVariables(warehouseId, itemId);
         HttpEntity<ItemDTO> requestEntity = createRequestEntity(null, authenticationToken);
-        return sendRequest(ITEM_URL, HttpMethod.DELETE, requestEntity, uriVariables);
+        return sendRequest(createUrl(ITEM_PATH), HttpMethod.DELETE, requestEntity, uriVariables);
     }
 
     public ResponseEntity<RequestResult<ItemDTO>> editItem(String authenticationToken, ItemDTO itemDTO) {
         Map<String, Long> uriVariables = createUriVariables(itemDTO.getWarehouseId(), itemDTO.getId());
         HttpEntity<ItemDTO> requestEntity = createRequestEntity(itemDTO, authenticationToken);
-        return sendRequest(ITEM_URL, HttpMethod.PUT, requestEntity, uriVariables);
+        return sendRequest(createUrl(ITEM_PATH), HttpMethod.PUT, requestEntity, uriVariables);
     }
 
     public ResponseEntity<RequestResult<ItemDTO>> addItem(String authenticationToken, ItemDTO itemDTO) {
         Map<String, Long> uriVariables = createUriVariables(itemDTO.getWarehouseId());
         HttpEntity<ItemDTO> requestEntity = createRequestEntity(itemDTO, authenticationToken);
-        return sendRequest(ITEMS_URL, HttpMethod.POST, requestEntity, uriVariables);
+        return sendRequest(createUrl(ITEMS_PATH), HttpMethod.POST, requestEntity, uriVariables);
     }
 
     private ResponseEntity<RequestResult<ItemDTO>> sendRequest(String url, HttpMethod httpMethod, HttpEntity<ItemDTO> requestEntity, Map<String, Long> uriVariables) {

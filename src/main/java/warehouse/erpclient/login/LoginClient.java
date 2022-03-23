@@ -15,9 +15,11 @@ import warehouse.erpclient.utils.dto.RequestResult;
 
 import java.util.List;
 
+import static warehouse.erpclient.utils.PropertiesUtils.createUrl;
+
 public class LoginClient {
 
-    private final String LOGIN_URL = "http://localhost:8080/login";
+    private final String LOGIN_PATH = "/login";
     private final ObjectMapper objectMapper;
     private final RestTemplate restTemplate;
 
@@ -46,7 +48,7 @@ public class LoginClient {
         try {
             ParameterizedTypeReference<RequestResult<UserDTO>> parameterizedTypeReference = new ParameterizedTypeReference<>() {
             };
-            responseEntity = restTemplate.exchange(LOGIN_URL, HttpMethod.POST, new HttpEntity<>(loginCredentials), parameterizedTypeReference);
+            responseEntity = restTemplate.exchange(createUrl(LOGIN_PATH), HttpMethod.POST, new HttpEntity<>(loginCredentials), parameterizedTypeReference);
         } catch (HttpStatusCodeException exception) {
             RequestResult<UserDTO> requestResult = objectMapper.readValue(exception.getResponseBodyAsString(), new TypeReference<>() {
             });
