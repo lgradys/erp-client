@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 import warehouse.erpclient.warehouse.model.Item;
 import warehouse.erpclient.warehouse.model.Warehouse;
+import warehouse.erpclient.warehouse.service.QuantityUnitService;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,6 +16,7 @@ import java.util.ResourceBundle;
 public class AddItemController extends ItemCrudController implements Initializable {
 
     private final WarehouseController warehouseController;
+    private final QuantityUnitService quantityUnitService;
     private Item item;
 
     @FXML
@@ -27,16 +29,13 @@ public class AddItemController extends ItemCrudController implements Initializab
     private Pane mainPane;
 
     @FXML
-    private TextField idField;
-
-    @FXML
     private TextField nameField;
 
     @FXML
     private TextField quantityField;
 
     @FXML
-    private TextField unitField;
+    private ComboBox<String> unitComboBox;
 
     @FXML
     private ComboBox<Warehouse> warehouseComboBox;
@@ -44,20 +43,23 @@ public class AddItemController extends ItemCrudController implements Initializab
     public AddItemController(WarehouseController warehouseController) {
         this.warehouseController = warehouseController;
         this.item = new Item();
+        this.quantityUnitService = new QuantityUnitService(this);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         initializeWarehouseList(warehouseController, warehouseComboBox);
-        initializeDisabledPropertyBindings(addButton, idField, nameField, quantityField, unitField);
-        initializeItemPropertyBindings(item, warehouseComboBox, idField, nameField, quantityField, unitField);
-        clearFields(idField, nameField, quantityField, unitField);
+        initializeDisabledPropertyBindings(addButton, unitComboBox, nameField, quantityField);
+        initializeQuantityUnitSymbolList(unitComboBox, warehouseController, quantityUnitService);
         initializeAddButton();
         initializeCloseButton(closeButton, mainPane);
     }
 
     private void initializeAddButton() {
-        addButton.setOnAction(actionEvent -> warehouseController.addItem(item));
+        addButton.setOnAction(actionEvent -> {
+            setItemValues(item, warehouseComboBox, nameField, quantityField, unitComboBox);
+            warehouseController.addItem(item);
+        });
     }
 
 }

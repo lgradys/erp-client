@@ -34,15 +34,6 @@
                <children>
                   <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" styleClass="field-box">
                      <children>
-                        <Label text="Id" />
-                        <TextField fx:id="idField" styleClass="field" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-                     </padding>
-                  </HBox>
-                  <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" styleClass="field-box">
-                     <children>
                         <Label text="Name" />
                         <TextField fx:id="nameField" />
                      </children>
@@ -62,7 +53,7 @@
                   <HBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" styleClass="field-box">
                      <children>
                         <Label text="Unit" />
-                        <TextField fx:id="unitField" />
+                        <ComboBox fx:id="unitComboBox" prefWidth="150.0" />
                      </children>
                      <padding>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

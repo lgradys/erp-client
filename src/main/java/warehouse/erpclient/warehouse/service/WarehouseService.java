@@ -60,10 +60,12 @@ public class WarehouseService {
             }
         }
         if (responseStatus.is4xxClientError() || responseStatus.is5xxServerError()) {
-            String errors = requestResult.getBody().getError().stream()
-                    .map(Error::getMessage)
-                    .collect(Collectors.joining(" "));
-            createExceptionAlert(errors);
+            Platform.runLater(() -> {
+                String errors = requestResult.getBody().getError().stream()
+                        .map(Error::getMessage)
+                        .collect(Collectors.joining(" "));
+                createExceptionAlert(errors).show();
+            });
         }
     }
 

@@ -2,19 +2,20 @@ package warehouse.erpclient.warehouse.controller;
 
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.BooleanExpression;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.converter.NumberStringConverter;
 import warehouse.erpclient.warehouse.model.Item;
 import warehouse.erpclient.warehouse.model.Warehouse;
+import warehouse.erpclient.warehouse.service.QuantityUnitService;
 
 import java.util.Arrays;
 
 public class ItemCrudController {
+
+    void initializeQuantityUnitSymbolList(ComboBox<String> unitComboBox, WarehouseController warehouseController, QuantityUnitService quantityUnitService) {
+        quantityUnitService.getQuantityUnitList(unitComboBox, warehouseController.getMainController().getAuthorizationToken());
+    }
 
     private Stage getStage(Pane mainPane) {
         return (Stage) mainPane.getScene().getWindow();
@@ -25,11 +26,12 @@ public class ItemCrudController {
         warehouseComboBox.getSelectionModel().select(warehouseController.getWarehouseComboBox().getSelectionModel().getSelectedItem());
     }
 
-    void initializeDisabledPropertyBindings(Button button, TextField ... textFields) {
+    void initializeDisabledPropertyBindings(Button button, ComboBox<String> unitComboBox, TextField ... textFields) {
         BooleanBinding booleanBinding = Arrays.stream(textFields).map(textField -> textField.textProperty().isEmpty())
                 .reduce(BooleanExpression::or)
                 .orElse(getFalseBooleanBinding());
         button.disableProperty().bind(booleanBinding);
+        button.disableProperty().bind(unitComboBox.getSelectionModel().selectedItemProperty().isNull());
     }
 
     private BooleanBinding getFalseBooleanBinding() {
@@ -41,24 +43,20 @@ public class ItemCrudController {
         };
     }
 
-    void initializeItemPropertyBindings(Item item, ComboBox<Warehouse> warehouseComboBox,
-                                TextField idField, TextField nameField, TextField quantityField, TextField unitField) {
-        initializeWarehousePropertyListener(item, warehouseComboBox);
-        idField.textProperty().bindBidirectional(item.idProperty(), new NumberStringConverter());
-        nameField.textProperty().bindBidirectional(item.nameProperty());
-        quantityField.textProperty().bindBidirectional(item.quantityProperty(), new NumberStringConverter());
-        unitField.textProperty().bindBidirectional(item.quantityUnitProperty());
-    }
-
-    public void clearFields(TextField ... textFields) {
-        Arrays.stream(textFields).forEach(TextInputControl::clear);
-    }
-
-    private void initializeWarehousePropertyListener(Item item, ComboBox<Warehouse> warehouseComboBox) {
+    void setItemValues(Item item, ComboBox<Warehouse> warehouseComboBox,
+                                TextField nameField, TextField quantityField, ComboBox<String> unitComboBox) {
         item.setWarehouseId(warehouseComboBox.getSelectionModel().getSelectedItem().getId());
-        warehouseComboBox.getSelectionModel().selectedItemProperty().addListener((observableValue, warehouse, t1) -> {
-            item.setWarehouseId(t1.getId());
-        });
+        item.setName(nameField.getText());
+        item.setQuantity(Integer.parseInt(quantityField.getText()));
+        item.setQuantityUnit(unitComboBox.getSelectionModel().getSelectedItem());
+    }
+
+    void setEditValues(Item item, ComboBox<Warehouse> warehouseComboBox,
+                                        TextField nameField, TextField quantityField, ComboBox<String> unitComboBox) {
+        warehouseComboBox.setValue(warehouseComboBox.getValue());
+        nameField.textProperty().setValue(item.getName());
+        quantityField.textProperty().setValue(String.valueOf(item.getQuantity()));
+        unitComboBox.setValue(item.getQuantityUnit());
     }
 
     void initializeCloseButton(Button closeButton, Pane mainPane) {
