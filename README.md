@@ -1,7 +1,7 @@
 <h1 align="center">Warehouse Management Desktop Application</h1>
 
 ## 📜 Description
-Simple multi-threading desktop application to consume api deployed on AWS form erp-server repository.
+Multi-threading desktop application to consume api deployed on AWS form erp-server repository.
 
 ## 🛠 Technology stack
 - JavaFX

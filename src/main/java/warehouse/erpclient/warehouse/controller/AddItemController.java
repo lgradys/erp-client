@@ -53,6 +53,7 @@ public class AddItemController extends ItemCrudController implements Initializab
         initializeQuantityUnitSymbolList(unitComboBox, warehouseController, quantityUnitService);
         initializeAddButton();
         initializeCloseButton(closeButton, mainPane);
+        setIntegerTextFormatter(quantityField);
     }
 
     private void initializeAddButton() {

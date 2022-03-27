@@ -2,9 +2,13 @@ package warehouse.erpclient.warehouse.controller;
 
 import javafx.beans.binding.BooleanBinding;
 import javafx.beans.binding.BooleanExpression;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
 import warehouse.erpclient.warehouse.model.Item;
 import warehouse.erpclient.warehouse.model.Warehouse;
 import warehouse.erpclient.warehouse.service.QuantityUnitService;
@@ -57,6 +61,10 @@ public class ItemCrudController {
         nameField.textProperty().setValue(item.getName());
         quantityField.textProperty().setValue(String.valueOf(item.getQuantity()));
         unitComboBox.setValue(item.getQuantityUnit());
+    }
+
+    void setIntegerTextFormatter(TextField textField){
+        textField.setTextFormatter(new TextFormatter<>(new IntegerStringConverter()));
     }
 
     void initializeCloseButton(Button closeButton, Pane mainPane) {

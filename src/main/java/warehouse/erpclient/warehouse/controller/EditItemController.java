@@ -54,6 +54,7 @@ public class EditItemController extends  ItemCrudController implements Initializ
         initializeDisabledPropertyBindings(editButton, unitComboBox, nameField, quantityField);
         initializeEditButton();
         initializeCloseButton(closeButton, mainPane);
+        setIntegerTextFormatter(quantityField);
     }
 
     private void initializeEditButton() {
