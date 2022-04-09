@@ -1,4 +1,9 @@
 package warehouse.erpclient.warehouse.controller;
 
-public class AppController {
+import javafx.fxml.Initializable;
+
+public interface AppController extends Initializable {
+
+    MainController getMainController();
+
 }

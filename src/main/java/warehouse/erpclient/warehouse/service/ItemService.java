@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
@@ -12,6 +13,7 @@ import javafx.stage.Stage;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import warehouse.erpclient.AppStarter;
+import warehouse.erpclient.utils.AlertUtils;
 import warehouse.erpclient.utils.dao.ExecutorServiceProvider;
 import warehouse.erpclient.utils.dto.Error;
 import warehouse.erpclient.utils.dto.RequestResult;
@@ -27,7 +29,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
 
-import static warehouse.erpclient.utils.AlertUtils.createExceptionAlert;
+import static warehouse.erpclient.utils.AlertUtils.createAlert;
 
 public class ItemService {
 
@@ -78,7 +80,7 @@ public class ItemService {
         HttpStatus responseStatus = requestResult.getStatusCode();
         if (responseStatus.equals(HttpStatus.OK)) {
             Platform.runLater(() -> {
-                createExceptionAlert(message).show();
+                createAlert(message, Alert.AlertType.ERROR).show();
                 executorService.submit(() -> getItems(warehouseController.getItemTable(), warehouseController.getWarehouseComboBox().getSelectionModel().getSelectedItem().getId()));
             });
         }
@@ -87,7 +89,7 @@ public class ItemService {
                 String errors = requestResult.getBody().getError().stream()
                         .map(Error::getMessage)
                         .collect(Collectors.joining(" "));
-                createExceptionAlert(errors).show();
+                createAlert(errors, Alert.AlertType.ERROR).show();
             });
         }
     }
@@ -134,7 +136,7 @@ public class ItemService {
             stage.show();
         } catch (Exception e) {
             e.printStackTrace();
-            Platform.runLater(() -> createExceptionAlert(e.getMessage()).show());
+            Platform.runLater(() -> AlertUtils.createAlert(e.getMessage(), Alert.AlertType.ERROR).show());
         }
     }
 

@@ -3,6 +3,7 @@ package warehouse.erpclient.warehouse.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -15,8 +16,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static warehouse.erpclient.utils.AlertUtils.createExceptionAlert;
-import static warehouse.erpclient.utils.StageUtils.*;
+import static warehouse.erpclient.utils.AlertUtils.createAlert;
+import static warehouse.erpclient.utils.StageUtils.centerPane;
+import static warehouse.erpclient.utils.StageUtils.stageCreator;
 
 public class MainController implements Initializable {
 
@@ -99,7 +101,7 @@ public class MainController implements Initializable {
             centerPane(loadedPane);
             mainPane.getChildren().add(loadedPane);
         } catch (IOException e) {
-            createExceptionAlert(e.getMessage());
+            createAlert(e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 

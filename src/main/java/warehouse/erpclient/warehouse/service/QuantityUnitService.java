@@ -2,6 +2,7 @@ package warehouse.erpclient.warehouse.service;
 
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
 
-import static warehouse.erpclient.utils.AlertUtils.createExceptionAlert;
+import static warehouse.erpclient.utils.AlertUtils.createAlert;
 
 public class QuantityUnitService {
 
@@ -42,9 +43,7 @@ public class QuantityUnitService {
         if (responseStatus.equals(HttpStatus.OK)) {
             List<String> unitsList = requestResult.getBody().getResource();
             if (!unitsList.isEmpty()) {
-                Platform.runLater(() -> {
-                    unitComboBox.setItems(FXCollections.observableArrayList(unitsList));
-                });
+                Platform.runLater(() -> unitComboBox.setItems(FXCollections.observableArrayList(unitsList)));
             }
         }
         if (responseStatus.is4xxClientError() || responseStatus.is5xxServerError()) {
@@ -52,7 +51,7 @@ public class QuantityUnitService {
                 String errors = requestResult.getBody().getError().stream()
                         .map(Error::getMessage)
                         .collect(Collectors.joining(" "));
-                createExceptionAlert(errors).show();
+                createAlert(errors, Alert.AlertType.ERROR).show();
             });
         }
     }

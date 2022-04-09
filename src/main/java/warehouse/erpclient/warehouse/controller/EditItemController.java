@@ -48,13 +48,13 @@ public class EditItemController extends  ItemCrudController implements Initializ
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        setIntegerTextFormatter(quantityField);
         initializeWarehouseList(warehouseController, warehouseComboBox);
         initializeQuantityUnitSymbolList(unitComboBox, warehouseController, quantityUnitService);
         setEditValues(item, warehouseComboBox, nameField, quantityField, unitComboBox);
         initializeDisabledPropertyBindings(editButton, unitComboBox, nameField, quantityField);
         initializeEditButton();
         initializeCloseButton(closeButton, mainPane);
-        setIntegerTextFormatter(quantityField);
     }
 
     private void initializeEditButton() {

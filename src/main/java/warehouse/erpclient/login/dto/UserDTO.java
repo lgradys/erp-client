@@ -4,16 +4,16 @@ public class UserDTO {
 
     private String username;
     private String password;
-    private String roleName;
+    private String role;
     private boolean enabled;
 
     public UserDTO() {
     }
 
-    public UserDTO(String username, String password, String roleName, boolean enabled) {
+    public UserDTO(String username, String password, String role, boolean enabled) {
         this.username = username;
         this.password = password;
-        this.roleName = roleName;
+        this.role = role;
         this.enabled = enabled;
     }
 
@@ -33,12 +33,12 @@ public class UserDTO {
         this.password = password;
     }
 
-    public String getRoleName() {
-        return roleName;
+    public String getRole() {
+        return role;
     }
 
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public boolean isEnabled() {

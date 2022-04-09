@@ -1,12 +1,13 @@
 package warehouse.erpclient.utils;
 
 import javafx.application.Platform;
+import javafx.scene.control.Alert;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import static warehouse.erpclient.utils.AlertUtils.createExceptionAlert;
+import static warehouse.erpclient.utils.AlertUtils.createAlert;
 
 public class PropertiesUtils {
 
@@ -22,8 +23,9 @@ public class PropertiesUtils {
             properties.load(new FileInputStream(resourcePath));
             return properties.getProperty("server.url");
         } catch (IOException exception) {
-            Platform.runLater(() -> createExceptionAlert(exception.getMessage()));
+            Platform.runLater(() -> createAlert(exception.getMessage(), Alert.AlertType.ERROR));
         }
         return serverUrl;
     }
+
 }

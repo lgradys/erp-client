@@ -2,7 +2,7 @@ package warehouse.erpclient.warehouse.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -12,10 +12,10 @@ import warehouse.erpclient.AppStarter;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static warehouse.erpclient.utils.AlertUtils.createExceptionAlert;
+import static warehouse.erpclient.utils.AlertUtils.createAlert;
 import static warehouse.erpclient.utils.StageUtils.centerPane;
 
-public class ProfileController extends AppController implements Initializable {
+public class ProfileController implements AppController {
 
     private final String PROFILE_DATA_FXML_PATH = "/warehouse/erpclient/warehouse/profile_data.fxml";
     private final MainController mainController;
@@ -64,12 +64,12 @@ public class ProfileController extends AppController implements Initializable {
             Pane loadedPane = loader.load();
             ProfileDataController profileDataController = loader.getController();
             profileDataController.setUsername(mainController.getUserDTO().getUsername());
-            profileDataController.setAuthorities(mainController.getUserDTO().getRoleName());
+            profileDataController.setAuthorities(mainController.getUserDTO().getRole());
             profileDataController.setToken(mainController.getAuthorizationToken());
             centerPane(loadedPane);
             mainPane.getChildren().add(loadedPane);
         } catch (Exception e) {
-            createExceptionAlert(e.getMessage());
+            createAlert(e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 

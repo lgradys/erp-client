@@ -2,6 +2,7 @@ package warehouse.erpclient.utils;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -9,7 +10,7 @@ import warehouse.erpclient.AppStarter;
 
 import java.io.IOException;
 
-import static warehouse.erpclient.utils.AlertUtils.createExceptionAlert;
+import static warehouse.erpclient.utils.AlertUtils.createAlert;
 
 public class StageUtils {
 
@@ -18,9 +19,9 @@ public class StageUtils {
             stage.setScene(sceneCreator(fxmlFilePath));
             stage.show();
         } catch (IOException exception) {
-            createExceptionAlert("Something went wrong. Check file access and try again!").show();
+            createAlert("Something went wrong. Check file access and try again!", Alert.AlertType.ERROR).show();
         } catch (Exception exception) {
-            createExceptionAlert(exception.getMessage()).show();
+            createAlert(exception.getMessage(), Alert.AlertType.ERROR).show();
         }
     }
 

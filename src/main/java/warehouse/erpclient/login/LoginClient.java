@@ -30,7 +30,6 @@ public class LoginClient {
     }
 
     public void processAuthentication(LoginCredentials loginCredentials, LoginHandler loginHandler) {
-        simulateDelay(1000);
         ResponseEntity<RequestResult<UserDTO>> responseEntity;
         try {
             responseEntity = sendRequest(loginCredentials);
@@ -39,7 +38,6 @@ public class LoginClient {
             RequestResult<UserDTO> requestResult = new RequestResult<>(HttpStatus.INTERNAL_SERVER_ERROR.value(), List.of(new Error(exception.getMessage())), List.of());
             responseEntity = new ResponseEntity<>(requestResult, HttpHeaders.EMPTY, HttpStatus.valueOf(requestResult.getStatus()));
         }
-        //todo check another possible exception - isolation of server exceptions and lost connection on client side
         loginHandler.handle(responseEntity);
     }
 
@@ -55,15 +53,6 @@ public class LoginClient {
             responseEntity = new ResponseEntity<>(requestResult, HttpHeaders.EMPTY, HttpStatus.valueOf(requestResult.getStatus()));
         }
         return responseEntity;
-    }
-
-    private void simulateDelay(long milliseconds) {
-        //todo to delete
-        try {
-            Thread.sleep(milliseconds);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
 }

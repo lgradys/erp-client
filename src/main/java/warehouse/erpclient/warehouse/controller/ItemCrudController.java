@@ -9,6 +9,7 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
+import javafx.util.converter.NumberStringConverter;
 import warehouse.erpclient.warehouse.model.Item;
 import warehouse.erpclient.warehouse.model.Warehouse;
 import warehouse.erpclient.warehouse.service.QuantityUnitService;

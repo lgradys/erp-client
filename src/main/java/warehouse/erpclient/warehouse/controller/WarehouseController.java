@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
-public class WarehouseController extends AppController implements Initializable {
+public class WarehouseController implements AppController {
 
     private final MainController mainController;
     private final WarehouseService warehouseService;
@@ -96,9 +96,7 @@ public class WarehouseController extends AppController implements Initializable 
     }
 
     private void initializeDeleteButton() {
-        deleteButton.setOnAction(actionEvent -> {
-            itemService.deleteItem(itemTable.getSelectionModel().getSelectedItem());
-        });
+        deleteButton.setOnAction(actionEvent -> itemService.deleteItem(itemTable.getSelectionModel().getSelectedItem()));
     }
 
     private void initializeTableView() {

@@ -3,11 +3,13 @@ package warehouse.erpclient.warehouse.service;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.Pane;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import warehouse.erpclient.AppStarter;
+import warehouse.erpclient.utils.AlertUtils;
 import warehouse.erpclient.utils.dao.ExecutorServiceProvider;
 import warehouse.erpclient.utils.dto.Error;
 import warehouse.erpclient.utils.dto.RequestResult;
@@ -21,7 +23,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.stream.Collectors;
 
-import static warehouse.erpclient.utils.AlertUtils.createExceptionAlert;
+import static warehouse.erpclient.utils.AlertUtils.createAlert;
 import static warehouse.erpclient.utils.StageUtils.centerPane;
 
 public class WarehouseService {
@@ -64,7 +66,7 @@ public class WarehouseService {
                 String errors = requestResult.getBody().getError().stream()
                         .map(Error::getMessage)
                         .collect(Collectors.joining(" "));
-                createExceptionAlert(errors).show();
+                createAlert(errors, Alert.AlertType.ERROR).show();
             });
         }
     }
@@ -82,7 +84,7 @@ public class WarehouseService {
             centerPane(loadedPane);
             mainPane.getChildren().add(loadedPane);
         } catch (Exception e) {
-            createExceptionAlert(e.getMessage());
+            AlertUtils.createAlert(e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 

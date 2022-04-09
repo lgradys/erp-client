@@ -1,7 +1,7 @@
 <h1 align="center">Warehouse Management Desktop Application</h1>
 
 ## 📜 Description
-Multi-threading desktop application to consume api deployed on AWS form erp-server repository.
+Multi-threading desktop application to consume api from erp-server repository.
 
 ## 🛠 Technology stack
 - JavaFX
@@ -14,7 +14,18 @@ Multi-threading desktop application to consume api deployed on AWS form erp-serv
 - JDK 11+
 
 ## 🏃‍♂️ Installation
-- Run the application: mvn clean javafx:run
+- Run the application:
+```
+mvn clean javafx:run
+ ```
+
+- Use sample credentials:
+```
+{
+"username" : "user",
+"password" : "password"
+}
+```
 
 ## 🎮 Application modules
 ### Login stage
